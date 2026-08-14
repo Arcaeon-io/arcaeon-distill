@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "arcaeon-distill"
+version = "0.1.0"
+description = "Deterministic, cache-stable tool-output distiller for AI agents. Fits more signal in the context budget; keeps a drop receipt for what got cut."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Arcaeon" }]
+keywords = ["ai", "agents", "mcp", "llm", "context", "token", "context-window",
+            "tool-output", "compaction", "deterministic", "prompt-caching"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Libraries",
+]
+dependencies = []
+
+[project.optional-dependencies]
+ledger = ["arcaeon-ledger"]
+
+[project.urls]
+Homepage = "https://arcaeon.io"
+Source = "https://github.com/Arcaeon-io/arcaeon-distill"
+
+[tool.hatch.build.targets.wheel]
+packages = ["arcaeon_distill"]
