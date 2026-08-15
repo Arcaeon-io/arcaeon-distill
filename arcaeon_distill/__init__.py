@@ -457,6 +457,7 @@ def _distill_rows(rows: list, row_cap: int) -> tuple:
 def _distill_tabular_rows(data: list, char_budget: int) -> tuple:
     row_cap = _DEFAULT_ROW_CAP
     kept, drops = data, []
+    kept_out = kept  # guarantees a bound value if _MAX_SHRINK_ITERS were ever <= 0
     for _ in range(_MAX_SHRINK_ITERS):
         kept, n_dropped, digest, dbytes = _distill_rows(data, row_cap)
         drops = []
@@ -567,7 +568,6 @@ def _distill_text(text: str, char_budget: int, query: Optional[str]) -> tuple:
     if not kept_idx:
         kept_idx = {ranked[0]}
 
-    ordered = sorted(kept_idx)
     pieces = []
     dropped_runs = []
     cur_run = []

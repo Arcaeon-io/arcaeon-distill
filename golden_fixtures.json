@@ -1,0 +1,2626 @@
+{
+  "cases": [
+    {
+      "budget": 150,
+      "golden_content": {
+        "query": "weather stations",
+        "results": [
+          {
+            "id": 0,
+            "name": "station-0",
+            "note": "reading reading reading reading readi...+123 more chars"
+          },
+          "...+198 more items",
+          {
+            "id": 199,
+            "name": "station-199",
+            "note": "reading reading reading reading readi...+123 more chars"
+          }
+        ],
+        "status": "ok",
+        "summary": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...+1963 more chars"
+      },
+      "golden_strategy": "json",
+      "golden_truncated": true,
+      "input": {
+        "query": "weather stations",
+        "results": [
+          {
+            "id": 0,
+            "name": "station-0",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 1,
+            "name": "station-1",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 2,
+            "name": "station-2",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 3,
+            "name": "station-3",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 4,
+            "name": "station-4",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 5,
+            "name": "station-5",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 6,
+            "name": "station-6",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 7,
+            "name": "station-7",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 8,
+            "name": "station-8",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 9,
+            "name": "station-9",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 10,
+            "name": "station-10",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 11,
+            "name": "station-11",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 12,
+            "name": "station-12",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 13,
+            "name": "station-13",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 14,
+            "name": "station-14",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 15,
+            "name": "station-15",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 16,
+            "name": "station-16",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 17,
+            "name": "station-17",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 18,
+            "name": "station-18",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 19,
+            "name": "station-19",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 20,
+            "name": "station-20",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 21,
+            "name": "station-21",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 22,
+            "name": "station-22",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 23,
+            "name": "station-23",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 24,
+            "name": "station-24",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 25,
+            "name": "station-25",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 26,
+            "name": "station-26",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 27,
+            "name": "station-27",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 28,
+            "name": "station-28",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 29,
+            "name": "station-29",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 30,
+            "name": "station-30",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 31,
+            "name": "station-31",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 32,
+            "name": "station-32",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 33,
+            "name": "station-33",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 34,
+            "name": "station-34",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 35,
+            "name": "station-35",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 36,
+            "name": "station-36",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 37,
+            "name": "station-37",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 38,
+            "name": "station-38",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 39,
+            "name": "station-39",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 40,
+            "name": "station-40",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 41,
+            "name": "station-41",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 42,
+            "name": "station-42",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 43,
+            "name": "station-43",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 44,
+            "name": "station-44",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 45,
+            "name": "station-45",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 46,
+            "name": "station-46",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 47,
+            "name": "station-47",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 48,
+            "name": "station-48",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 49,
+            "name": "station-49",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 50,
+            "name": "station-50",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 51,
+            "name": "station-51",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 52,
+            "name": "station-52",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 53,
+            "name": "station-53",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 54,
+            "name": "station-54",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 55,
+            "name": "station-55",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 56,
+            "name": "station-56",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 57,
+            "name": "station-57",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 58,
+            "name": "station-58",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 59,
+            "name": "station-59",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 60,
+            "name": "station-60",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 61,
+            "name": "station-61",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 62,
+            "name": "station-62",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 63,
+            "name": "station-63",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 64,
+            "name": "station-64",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 65,
+            "name": "station-65",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 66,
+            "name": "station-66",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 67,
+            "name": "station-67",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 68,
+            "name": "station-68",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 69,
+            "name": "station-69",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 70,
+            "name": "station-70",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 71,
+            "name": "station-71",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 72,
+            "name": "station-72",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 73,
+            "name": "station-73",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 74,
+            "name": "station-74",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 75,
+            "name": "station-75",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 76,
+            "name": "station-76",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 77,
+            "name": "station-77",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 78,
+            "name": "station-78",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 79,
+            "name": "station-79",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 80,
+            "name": "station-80",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 81,
+            "name": "station-81",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 82,
+            "name": "station-82",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 83,
+            "name": "station-83",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 84,
+            "name": "station-84",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 85,
+            "name": "station-85",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 86,
+            "name": "station-86",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 87,
+            "name": "station-87",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 88,
+            "name": "station-88",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 89,
+            "name": "station-89",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 90,
+            "name": "station-90",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 91,
+            "name": "station-91",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 92,
+            "name": "station-92",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 93,
+            "name": "station-93",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 94,
+            "name": "station-94",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 95,
+            "name": "station-95",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 96,
+            "name": "station-96",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 97,
+            "name": "station-97",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 98,
+            "name": "station-98",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 99,
+            "name": "station-99",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 100,
+            "name": "station-100",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 101,
+            "name": "station-101",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 102,
+            "name": "station-102",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 103,
+            "name": "station-103",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 104,
+            "name": "station-104",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 105,
+            "name": "station-105",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 106,
+            "name": "station-106",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 107,
+            "name": "station-107",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 108,
+            "name": "station-108",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 109,
+            "name": "station-109",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 110,
+            "name": "station-110",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 111,
+            "name": "station-111",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 112,
+            "name": "station-112",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 113,
+            "name": "station-113",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 114,
+            "name": "station-114",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 115,
+            "name": "station-115",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 116,
+            "name": "station-116",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 117,
+            "name": "station-117",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 118,
+            "name": "station-118",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 119,
+            "name": "station-119",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 120,
+            "name": "station-120",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 121,
+            "name": "station-121",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 122,
+            "name": "station-122",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 123,
+            "name": "station-123",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 124,
+            "name": "station-124",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 125,
+            "name": "station-125",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 126,
+            "name": "station-126",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 127,
+            "name": "station-127",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 128,
+            "name": "station-128",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 129,
+            "name": "station-129",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 130,
+            "name": "station-130",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 131,
+            "name": "station-131",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 132,
+            "name": "station-132",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 133,
+            "name": "station-133",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 134,
+            "name": "station-134",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 135,
+            "name": "station-135",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 136,
+            "name": "station-136",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 137,
+            "name": "station-137",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 138,
+            "name": "station-138",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 139,
+            "name": "station-139",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 140,
+            "name": "station-140",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 141,
+            "name": "station-141",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 142,
+            "name": "station-142",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 143,
+            "name": "station-143",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 144,
+            "name": "station-144",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 145,
+            "name": "station-145",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 146,
+            "name": "station-146",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 147,
+            "name": "station-147",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 148,
+            "name": "station-148",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 149,
+            "name": "station-149",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 150,
+            "name": "station-150",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 151,
+            "name": "station-151",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 152,
+            "name": "station-152",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 153,
+            "name": "station-153",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 154,
+            "name": "station-154",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 155,
+            "name": "station-155",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 156,
+            "name": "station-156",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 157,
+            "name": "station-157",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 158,
+            "name": "station-158",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 159,
+            "name": "station-159",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 160,
+            "name": "station-160",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 161,
+            "name": "station-161",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 162,
+            "name": "station-162",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 163,
+            "name": "station-163",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 164,
+            "name": "station-164",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 165,
+            "name": "station-165",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 166,
+            "name": "station-166",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 167,
+            "name": "station-167",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 168,
+            "name": "station-168",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 169,
+            "name": "station-169",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 170,
+            "name": "station-170",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 171,
+            "name": "station-171",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 172,
+            "name": "station-172",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 173,
+            "name": "station-173",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 174,
+            "name": "station-174",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 175,
+            "name": "station-175",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 176,
+            "name": "station-176",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 177,
+            "name": "station-177",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 178,
+            "name": "station-178",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 179,
+            "name": "station-179",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 180,
+            "name": "station-180",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 181,
+            "name": "station-181",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 182,
+            "name": "station-182",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 183,
+            "name": "station-183",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 184,
+            "name": "station-184",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 185,
+            "name": "station-185",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 186,
+            "name": "station-186",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 187,
+            "name": "station-187",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 188,
+            "name": "station-188",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 189,
+            "name": "station-189",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 190,
+            "name": "station-190",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 191,
+            "name": "station-191",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 192,
+            "name": "station-192",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 193,
+            "name": "station-193",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 194,
+            "name": "station-194",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 195,
+            "name": "station-195",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 196,
+            "name": "station-196",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 197,
+            "name": "station-197",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 198,
+            "name": "station-198",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          },
+          {
+            "id": 199,
+            "name": "station-199",
+            "note": "reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading reading "
+          }
+        ],
+        "status": "ok",
+        "summary": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "name": "json_strategy",
+      "query": null,
+      "schema_hint": null
+    },
+    {
+      "budget": 200,
+      "golden_content": [
+        {
+          "id": 0,
+          "label": "row-0",
+          "value": 0
+        },
+        {
+          "id": 1,
+          "label": "row-1",
+          "value": 3
+        },
+        {
+          "id": 2,
+          "label": "row-2",
+          "value": 6
+        },
+        {
+          "id": 3,
+          "label": "row-3",
+          "value": 9
+        },
+        {
+          "id": 4,
+          "label": "row-4",
+          "value": 12
+        },
+        {
+          "__distilled_dropped_rows__": 290
+        },
+        {
+          "id": 295,
+          "label": "row-295",
+          "value": 885
+        },
+        {
+          "id": 296,
+          "label": "row-296",
+          "value": 888
+        },
+        {
+          "id": 297,
+          "label": "row-297",
+          "value": 891
+        },
+        {
+          "id": 298,
+          "label": "row-298",
+          "value": 894
+        },
+        {
+          "id": 299,
+          "label": "row-299",
+          "value": 897
+        }
+      ],
+      "golden_strategy": "tabular",
+      "golden_truncated": true,
+      "input": [
+        {
+          "id": 0,
+          "label": "row-0",
+          "value": 0
+        },
+        {
+          "id": 1,
+          "label": "row-1",
+          "value": 3
+        },
+        {
+          "id": 2,
+          "label": "row-2",
+          "value": 6
+        },
+        {
+          "id": 3,
+          "label": "row-3",
+          "value": 9
+        },
+        {
+          "id": 4,
+          "label": "row-4",
+          "value": 12
+        },
+        {
+          "id": 5,
+          "label": "row-5",
+          "value": 15
+        },
+        {
+          "id": 6,
+          "label": "row-6",
+          "value": 18
+        },
+        {
+          "id": 7,
+          "label": "row-7",
+          "value": 21
+        },
+        {
+          "id": 8,
+          "label": "row-8",
+          "value": 24
+        },
+        {
+          "id": 9,
+          "label": "row-9",
+          "value": 27
+        },
+        {
+          "id": 10,
+          "label": "row-10",
+          "value": 30
+        },
+        {
+          "id": 11,
+          "label": "row-11",
+          "value": 33
+        },
+        {
+          "id": 12,
+          "label": "row-12",
+          "value": 36
+        },
+        {
+          "id": 13,
+          "label": "row-13",
+          "value": 39
+        },
+        {
+          "id": 14,
+          "label": "row-14",
+          "value": 42
+        },
+        {
+          "id": 15,
+          "label": "row-15",
+          "value": 45
+        },
+        {
+          "id": 16,
+          "label": "row-16",
+          "value": 48
+        },
+        {
+          "id": 17,
+          "label": "row-17",
+          "value": 51
+        },
+        {
+          "id": 18,
+          "label": "row-18",
+          "value": 54
+        },
+        {
+          "id": 19,
+          "label": "row-19",
+          "value": 57
+        },
+        {
+          "id": 20,
+          "label": "row-20",
+          "value": 60
+        },
+        {
+          "id": 21,
+          "label": "row-21",
+          "value": 63
+        },
+        {
+          "id": 22,
+          "label": "row-22",
+          "value": 66
+        },
+        {
+          "id": 23,
+          "label": "row-23",
+          "value": 69
+        },
+        {
+          "id": 24,
+          "label": "row-24",
+          "value": 72
+        },
+        {
+          "id": 25,
+          "label": "row-25",
+          "value": 75
+        },
+        {
+          "id": 26,
+          "label": "row-26",
+          "value": 78
+        },
+        {
+          "id": 27,
+          "label": "row-27",
+          "value": 81
+        },
+        {
+          "id": 28,
+          "label": "row-28",
+          "value": 84
+        },
+        {
+          "id": 29,
+          "label": "row-29",
+          "value": 87
+        },
+        {
+          "id": 30,
+          "label": "row-30",
+          "value": 90
+        },
+        {
+          "id": 31,
+          "label": "row-31",
+          "value": 93
+        },
+        {
+          "id": 32,
+          "label": "row-32",
+          "value": 96
+        },
+        {
+          "id": 33,
+          "label": "row-33",
+          "value": 99
+        },
+        {
+          "id": 34,
+          "label": "row-34",
+          "value": 102
+        },
+        {
+          "id": 35,
+          "label": "row-35",
+          "value": 105
+        },
+        {
+          "id": 36,
+          "label": "row-36",
+          "value": 108
+        },
+        {
+          "id": 37,
+          "label": "row-37",
+          "value": 111
+        },
+        {
+          "id": 38,
+          "label": "row-38",
+          "value": 114
+        },
+        {
+          "id": 39,
+          "label": "row-39",
+          "value": 117
+        },
+        {
+          "id": 40,
+          "label": "row-40",
+          "value": 120
+        },
+        {
+          "id": 41,
+          "label": "row-41",
+          "value": 123
+        },
+        {
+          "id": 42,
+          "label": "row-42",
+          "value": 126
+        },
+        {
+          "id": 43,
+          "label": "row-43",
+          "value": 129
+        },
+        {
+          "id": 44,
+          "label": "row-44",
+          "value": 132
+        },
+        {
+          "id": 45,
+          "label": "row-45",
+          "value": 135
+        },
+        {
+          "id": 46,
+          "label": "row-46",
+          "value": 138
+        },
+        {
+          "id": 47,
+          "label": "row-47",
+          "value": 141
+        },
+        {
+          "id": 48,
+          "label": "row-48",
+          "value": 144
+        },
+        {
+          "id": 49,
+          "label": "row-49",
+          "value": 147
+        },
+        {
+          "id": 50,
+          "label": "row-50",
+          "value": 150
+        },
+        {
+          "id": 51,
+          "label": "row-51",
+          "value": 153
+        },
+        {
+          "id": 52,
+          "label": "row-52",
+          "value": 156
+        },
+        {
+          "id": 53,
+          "label": "row-53",
+          "value": 159
+        },
+        {
+          "id": 54,
+          "label": "row-54",
+          "value": 162
+        },
+        {
+          "id": 55,
+          "label": "row-55",
+          "value": 165
+        },
+        {
+          "id": 56,
+          "label": "row-56",
+          "value": 168
+        },
+        {
+          "id": 57,
+          "label": "row-57",
+          "value": 171
+        },
+        {
+          "id": 58,
+          "label": "row-58",
+          "value": 174
+        },
+        {
+          "id": 59,
+          "label": "row-59",
+          "value": 177
+        },
+        {
+          "id": 60,
+          "label": "row-60",
+          "value": 180
+        },
+        {
+          "id": 61,
+          "label": "row-61",
+          "value": 183
+        },
+        {
+          "id": 62,
+          "label": "row-62",
+          "value": 186
+        },
+        {
+          "id": 63,
+          "label": "row-63",
+          "value": 189
+        },
+        {
+          "id": 64,
+          "label": "row-64",
+          "value": 192
+        },
+        {
+          "id": 65,
+          "label": "row-65",
+          "value": 195
+        },
+        {
+          "id": 66,
+          "label": "row-66",
+          "value": 198
+        },
+        {
+          "id": 67,
+          "label": "row-67",
+          "value": 201
+        },
+        {
+          "id": 68,
+          "label": "row-68",
+          "value": 204
+        },
+        {
+          "id": 69,
+          "label": "row-69",
+          "value": 207
+        },
+        {
+          "id": 70,
+          "label": "row-70",
+          "value": 210
+        },
+        {
+          "id": 71,
+          "label": "row-71",
+          "value": 213
+        },
+        {
+          "id": 72,
+          "label": "row-72",
+          "value": 216
+        },
+        {
+          "id": 73,
+          "label": "row-73",
+          "value": 219
+        },
+        {
+          "id": 74,
+          "label": "row-74",
+          "value": 222
+        },
+        {
+          "id": 75,
+          "label": "row-75",
+          "value": 225
+        },
+        {
+          "id": 76,
+          "label": "row-76",
+          "value": 228
+        },
+        {
+          "id": 77,
+          "label": "row-77",
+          "value": 231
+        },
+        {
+          "id": 78,
+          "label": "row-78",
+          "value": 234
+        },
+        {
+          "id": 79,
+          "label": "row-79",
+          "value": 237
+        },
+        {
+          "id": 80,
+          "label": "row-80",
+          "value": 240
+        },
+        {
+          "id": 81,
+          "label": "row-81",
+          "value": 243
+        },
+        {
+          "id": 82,
+          "label": "row-82",
+          "value": 246
+        },
+        {
+          "id": 83,
+          "label": "row-83",
+          "value": 249
+        },
+        {
+          "id": 84,
+          "label": "row-84",
+          "value": 252
+        },
+        {
+          "id": 85,
+          "label": "row-85",
+          "value": 255
+        },
+        {
+          "id": 86,
+          "label": "row-86",
+          "value": 258
+        },
+        {
+          "id": 87,
+          "label": "row-87",
+          "value": 261
+        },
+        {
+          "id": 88,
+          "label": "row-88",
+          "value": 264
+        },
+        {
+          "id": 89,
+          "label": "row-89",
+          "value": 267
+        },
+        {
+          "id": 90,
+          "label": "row-90",
+          "value": 270
+        },
+        {
+          "id": 91,
+          "label": "row-91",
+          "value": 273
+        },
+        {
+          "id": 92,
+          "label": "row-92",
+          "value": 276
+        },
+        {
+          "id": 93,
+          "label": "row-93",
+          "value": 279
+        },
+        {
+          "id": 94,
+          "label": "row-94",
+          "value": 282
+        },
+        {
+          "id": 95,
+          "label": "row-95",
+          "value": 285
+        },
+        {
+          "id": 96,
+          "label": "row-96",
+          "value": 288
+        },
+        {
+          "id": 97,
+          "label": "row-97",
+          "value": 291
+        },
+        {
+          "id": 98,
+          "label": "row-98",
+          "value": 294
+        },
+        {
+          "id": 99,
+          "label": "row-99",
+          "value": 297
+        },
+        {
+          "id": 100,
+          "label": "row-100",
+          "value": 300
+        },
+        {
+          "id": 101,
+          "label": "row-101",
+          "value": 303
+        },
+        {
+          "id": 102,
+          "label": "row-102",
+          "value": 306
+        },
+        {
+          "id": 103,
+          "label": "row-103",
+          "value": 309
+        },
+        {
+          "id": 104,
+          "label": "row-104",
+          "value": 312
+        },
+        {
+          "id": 105,
+          "label": "row-105",
+          "value": 315
+        },
+        {
+          "id": 106,
+          "label": "row-106",
+          "value": 318
+        },
+        {
+          "id": 107,
+          "label": "row-107",
+          "value": 321
+        },
+        {
+          "id": 108,
+          "label": "row-108",
+          "value": 324
+        },
+        {
+          "id": 109,
+          "label": "row-109",
+          "value": 327
+        },
+        {
+          "id": 110,
+          "label": "row-110",
+          "value": 330
+        },
+        {
+          "id": 111,
+          "label": "row-111",
+          "value": 333
+        },
+        {
+          "id": 112,
+          "label": "row-112",
+          "value": 336
+        },
+        {
+          "id": 113,
+          "label": "row-113",
+          "value": 339
+        },
+        {
+          "id": 114,
+          "label": "row-114",
+          "value": 342
+        },
+        {
+          "id": 115,
+          "label": "row-115",
+          "value": 345
+        },
+        {
+          "id": 116,
+          "label": "row-116",
+          "value": 348
+        },
+        {
+          "id": 117,
+          "label": "row-117",
+          "value": 351
+        },
+        {
+          "id": 118,
+          "label": "row-118",
+          "value": 354
+        },
+        {
+          "id": 119,
+          "label": "row-119",
+          "value": 357
+        },
+        {
+          "id": 120,
+          "label": "row-120",
+          "value": 360
+        },
+        {
+          "id": 121,
+          "label": "row-121",
+          "value": 363
+        },
+        {
+          "id": 122,
+          "label": "row-122",
+          "value": 366
+        },
+        {
+          "id": 123,
+          "label": "row-123",
+          "value": 369
+        },
+        {
+          "id": 124,
+          "label": "row-124",
+          "value": 372
+        },
+        {
+          "id": 125,
+          "label": "row-125",
+          "value": 375
+        },
+        {
+          "id": 126,
+          "label": "row-126",
+          "value": 378
+        },
+        {
+          "id": 127,
+          "label": "row-127",
+          "value": 381
+        },
+        {
+          "id": 128,
+          "label": "row-128",
+          "value": 384
+        },
+        {
+          "id": 129,
+          "label": "row-129",
+          "value": 387
+        },
+        {
+          "id": 130,
+          "label": "row-130",
+          "value": 390
+        },
+        {
+          "id": 131,
+          "label": "row-131",
+          "value": 393
+        },
+        {
+          "id": 132,
+          "label": "row-132",
+          "value": 396
+        },
+        {
+          "id": 133,
+          "label": "row-133",
+          "value": 399
+        },
+        {
+          "id": 134,
+          "label": "row-134",
+          "value": 402
+        },
+        {
+          "id": 135,
+          "label": "row-135",
+          "value": 405
+        },
+        {
+          "id": 136,
+          "label": "row-136",
+          "value": 408
+        },
+        {
+          "id": 137,
+          "label": "row-137",
+          "value": 411
+        },
+        {
+          "id": 138,
+          "label": "row-138",
+          "value": 414
+        },
+        {
+          "id": 139,
+          "label": "row-139",
+          "value": 417
+        },
+        {
+          "id": 140,
+          "label": "row-140",
+          "value": 420
+        },
+        {
+          "id": 141,
+          "label": "row-141",
+          "value": 423
+        },
+        {
+          "id": 142,
+          "label": "row-142",
+          "value": 426
+        },
+        {
+          "id": 143,
+          "label": "row-143",
+          "value": 429
+        },
+        {
+          "id": 144,
+          "label": "row-144",
+          "value": 432
+        },
+        {
+          "id": 145,
+          "label": "row-145",
+          "value": 435
+        },
+        {
+          "id": 146,
+          "label": "row-146",
+          "value": 438
+        },
+        {
+          "id": 147,
+          "label": "row-147",
+          "value": 441
+        },
+        {
+          "id": 148,
+          "label": "row-148",
+          "value": 444
+        },
+        {
+          "id": 149,
+          "label": "row-149",
+          "value": 447
+        },
+        {
+          "id": 150,
+          "label": "row-150",
+          "value": 450
+        },
+        {
+          "id": 151,
+          "label": "row-151",
+          "value": 453
+        },
+        {
+          "id": 152,
+          "label": "row-152",
+          "value": 456
+        },
+        {
+          "id": 153,
+          "label": "row-153",
+          "value": 459
+        },
+        {
+          "id": 154,
+          "label": "row-154",
+          "value": 462
+        },
+        {
+          "id": 155,
+          "label": "row-155",
+          "value": 465
+        },
+        {
+          "id": 156,
+          "label": "row-156",
+          "value": 468
+        },
+        {
+          "id": 157,
+          "label": "row-157",
+          "value": 471
+        },
+        {
+          "id": 158,
+          "label": "row-158",
+          "value": 474
+        },
+        {
+          "id": 159,
+          "label": "row-159",
+          "value": 477
+        },
+        {
+          "id": 160,
+          "label": "row-160",
+          "value": 480
+        },
+        {
+          "id": 161,
+          "label": "row-161",
+          "value": 483
+        },
+        {
+          "id": 162,
+          "label": "row-162",
+          "value": 486
+        },
+        {
+          "id": 163,
+          "label": "row-163",
+          "value": 489
+        },
+        {
+          "id": 164,
+          "label": "row-164",
+          "value": 492
+        },
+        {
+          "id": 165,
+          "label": "row-165",
+          "value": 495
+        },
+        {
+          "id": 166,
+          "label": "row-166",
+          "value": 498
+        },
+        {
+          "id": 167,
+          "label": "row-167",
+          "value": 501
+        },
+        {
+          "id": 168,
+          "label": "row-168",
+          "value": 504
+        },
+        {
+          "id": 169,
+          "label": "row-169",
+          "value": 507
+        },
+        {
+          "id": 170,
+          "label": "row-170",
+          "value": 510
+        },
+        {
+          "id": 171,
+          "label": "row-171",
+          "value": 513
+        },
+        {
+          "id": 172,
+          "label": "row-172",
+          "value": 516
+        },
+        {
+          "id": 173,
+          "label": "row-173",
+          "value": 519
+        },
+        {
+          "id": 174,
+          "label": "row-174",
+          "value": 522
+        },
+        {
+          "id": 175,
+          "label": "row-175",
+          "value": 525
+        },
+        {
+          "id": 176,
+          "label": "row-176",
+          "value": 528
+        },
+        {
+          "id": 177,
+          "label": "row-177",
+          "value": 531
+        },
+        {
+          "id": 178,
+          "label": "row-178",
+          "value": 534
+        },
+        {
+          "id": 179,
+          "label": "row-179",
+          "value": 537
+        },
+        {
+          "id": 180,
+          "label": "row-180",
+          "value": 540
+        },
+        {
+          "id": 181,
+          "label": "row-181",
+          "value": 543
+        },
+        {
+          "id": 182,
+          "label": "row-182",
+          "value": 546
+        },
+        {
+          "id": 183,
+          "label": "row-183",
+          "value": 549
+        },
+        {
+          "id": 184,
+          "label": "row-184",
+          "value": 552
+        },
+        {
+          "id": 185,
+          "label": "row-185",
+          "value": 555
+        },
+        {
+          "id": 186,
+          "label": "row-186",
+          "value": 558
+        },
+        {
+          "id": 187,
+          "label": "row-187",
+          "value": 561
+        },
+        {
+          "id": 188,
+          "label": "row-188",
+          "value": 564
+        },
+        {
+          "id": 189,
+          "label": "row-189",
+          "value": 567
+        },
+        {
+          "id": 190,
+          "label": "row-190",
+          "value": 570
+        },
+        {
+          "id": 191,
+          "label": "row-191",
+          "value": 573
+        },
+        {
+          "id": 192,
+          "label": "row-192",
+          "value": 576
+        },
+        {
+          "id": 193,
+          "label": "row-193",
+          "value": 579
+        },
+        {
+          "id": 194,
+          "label": "row-194",
+          "value": 582
+        },
+        {
+          "id": 195,
+          "label": "row-195",
+          "value": 585
+        },
+        {
+          "id": 196,
+          "label": "row-196",
+          "value": 588
+        },
+        {
+          "id": 197,
+          "label": "row-197",
+          "value": 591
+        },
+        {
+          "id": 198,
+          "label": "row-198",
+          "value": 594
+        },
+        {
+          "id": 199,
+          "label": "row-199",
+          "value": 597
+        },
+        {
+          "id": 200,
+          "label": "row-200",
+          "value": 600
+        },
+        {
+          "id": 201,
+          "label": "row-201",
+          "value": 603
+        },
+        {
+          "id": 202,
+          "label": "row-202",
+          "value": 606
+        },
+        {
+          "id": 203,
+          "label": "row-203",
+          "value": 609
+        },
+        {
+          "id": 204,
+          "label": "row-204",
+          "value": 612
+        },
+        {
+          "id": 205,
+          "label": "row-205",
+          "value": 615
+        },
+        {
+          "id": 206,
+          "label": "row-206",
+          "value": 618
+        },
+        {
+          "id": 207,
+          "label": "row-207",
+          "value": 621
+        },
+        {
+          "id": 208,
+          "label": "row-208",
+          "value": 624
+        },
+        {
+          "id": 209,
+          "label": "row-209",
+          "value": 627
+        },
+        {
+          "id": 210,
+          "label": "row-210",
+          "value": 630
+        },
+        {
+          "id": 211,
+          "label": "row-211",
+          "value": 633
+        },
+        {
+          "id": 212,
+          "label": "row-212",
+          "value": 636
+        },
+        {
+          "id": 213,
+          "label": "row-213",
+          "value": 639
+        },
+        {
+          "id": 214,
+          "label": "row-214",
+          "value": 642
+        },
+        {
+          "id": 215,
+          "label": "row-215",
+          "value": 645
+        },
+        {
+          "id": 216,
+          "label": "row-216",
+          "value": 648
+        },
+        {
+          "id": 217,
+          "label": "row-217",
+          "value": 651
+        },
+        {
+          "id": 218,
+          "label": "row-218",
+          "value": 654
+        },
+        {
+          "id": 219,
+          "label": "row-219",
+          "value": 657
+        },
+        {
+          "id": 220,
+          "label": "row-220",
+          "value": 660
+        },
+        {
+          "id": 221,
+          "label": "row-221",
+          "value": 663
+        },
+        {
+          "id": 222,
+          "label": "row-222",
+          "value": 666
+        },
+        {
+          "id": 223,
+          "label": "row-223",
+          "value": 669
+        },
+        {
+          "id": 224,
+          "label": "row-224",
+          "value": 672
+        },
+        {
+          "id": 225,
+          "label": "row-225",
+          "value": 675
+        },
+        {
+          "id": 226,
+          "label": "row-226",
+          "value": 678
+        },
+        {
+          "id": 227,
+          "label": "row-227",
+          "value": 681
+        },
+        {
+          "id": 228,
+          "label": "row-228",
+          "value": 684
+        },
+        {
+          "id": 229,
+          "label": "row-229",
+          "value": 687
+        },
+        {
+          "id": 230,
+          "label": "row-230",
+          "value": 690
+        },
+        {
+          "id": 231,
+          "label": "row-231",
+          "value": 693
+        },
+        {
+          "id": 232,
+          "label": "row-232",
+          "value": 696
+        },
+        {
+          "id": 233,
+          "label": "row-233",
+          "value": 699
+        },
+        {
+          "id": 234,
+          "label": "row-234",
+          "value": 702
+        },
+        {
+          "id": 235,
+          "label": "row-235",
+          "value": 705
+        },
+        {
+          "id": 236,
+          "label": "row-236",
+          "value": 708
+        },
+        {
+          "id": 237,
+          "label": "row-237",
+          "value": 711
+        },
+        {
+          "id": 238,
+          "label": "row-238",
+          "value": 714
+        },
+        {
+          "id": 239,
+          "label": "row-239",
+          "value": 717
+        },
+        {
+          "id": 240,
+          "label": "row-240",
+          "value": 720
+        },
+        {
+          "id": 241,
+          "label": "row-241",
+          "value": 723
+        },
+        {
+          "id": 242,
+          "label": "row-242",
+          "value": 726
+        },
+        {
+          "id": 243,
+          "label": "row-243",
+          "value": 729
+        },
+        {
+          "id": 244,
+          "label": "row-244",
+          "value": 732
+        },
+        {
+          "id": 245,
+          "label": "row-245",
+          "value": 735
+        },
+        {
+          "id": 246,
+          "label": "row-246",
+          "value": 738
+        },
+        {
+          "id": 247,
+          "label": "row-247",
+          "value": 741
+        },
+        {
+          "id": 248,
+          "label": "row-248",
+          "value": 744
+        },
+        {
+          "id": 249,
+          "label": "row-249",
+          "value": 747
+        },
+        {
+          "id": 250,
+          "label": "row-250",
+          "value": 750
+        },
+        {
+          "id": 251,
+          "label": "row-251",
+          "value": 753
+        },
+        {
+          "id": 252,
+          "label": "row-252",
+          "value": 756
+        },
+        {
+          "id": 253,
+          "label": "row-253",
+          "value": 759
+        },
+        {
+          "id": 254,
+          "label": "row-254",
+          "value": 762
+        },
+        {
+          "id": 255,
+          "label": "row-255",
+          "value": 765
+        },
+        {
+          "id": 256,
+          "label": "row-256",
+          "value": 768
+        },
+        {
+          "id": 257,
+          "label": "row-257",
+          "value": 771
+        },
+        {
+          "id": 258,
+          "label": "row-258",
+          "value": 774
+        },
+        {
+          "id": 259,
+          "label": "row-259",
+          "value": 777
+        },
+        {
+          "id": 260,
+          "label": "row-260",
+          "value": 780
+        },
+        {
+          "id": 261,
+          "label": "row-261",
+          "value": 783
+        },
+        {
+          "id": 262,
+          "label": "row-262",
+          "value": 786
+        },
+        {
+          "id": 263,
+          "label": "row-263",
+          "value": 789
+        },
+        {
+          "id": 264,
+          "label": "row-264",
+          "value": 792
+        },
+        {
+          "id": 265,
+          "label": "row-265",
+          "value": 795
+        },
+        {
+          "id": 266,
+          "label": "row-266",
+          "value": 798
+        },
+        {
+          "id": 267,
+          "label": "row-267",
+          "value": 801
+        },
+        {
+          "id": 268,
+          "label": "row-268",
+          "value": 804
+        },
+        {
+          "id": 269,
+          "label": "row-269",
+          "value": 807
+        },
+        {
+          "id": 270,
+          "label": "row-270",
+          "value": 810
+        },
+        {
+          "id": 271,
+          "label": "row-271",
+          "value": 813
+        },
+        {
+          "id": 272,
+          "label": "row-272",
+          "value": 816
+        },
+        {
+          "id": 273,
+          "label": "row-273",
+          "value": 819
+        },
+        {
+          "id": 274,
+          "label": "row-274",
+          "value": 822
+        },
+        {
+          "id": 275,
+          "label": "row-275",
+          "value": 825
+        },
+        {
+          "id": 276,
+          "label": "row-276",
+          "value": 828
+        },
+        {
+          "id": 277,
+          "label": "row-277",
+          "value": 831
+        },
+        {
+          "id": 278,
+          "label": "row-278",
+          "value": 834
+        },
+        {
+          "id": 279,
+          "label": "row-279",
+          "value": 837
+        },
+        {
+          "id": 280,
+          "label": "row-280",
+          "value": 840
+        },
+        {
+          "id": 281,
+          "label": "row-281",
+          "value": 843
+        },
+        {
+          "id": 282,
+          "label": "row-282",
+          "value": 846
+        },
+        {
+          "id": 283,
+          "label": "row-283",
+          "value": 849
+        },
+        {
+          "id": 284,
+          "label": "row-284",
+          "value": 852
+        },
+        {
+          "id": 285,
+          "label": "row-285",
+          "value": 855
+        },
+        {
+          "id": 286,
+          "label": "row-286",
+          "value": 858
+        },
+        {
+          "id": 287,
+          "label": "row-287",
+          "value": 861
+        },
+        {
+          "id": 288,
+          "label": "row-288",
+          "value": 864
+        },
+        {
+          "id": 289,
+          "label": "row-289",
+          "value": 867
+        },
+        {
+          "id": 290,
+          "label": "row-290",
+          "value": 870
+        },
+        {
+          "id": 291,
+          "label": "row-291",
+          "value": 873
+        },
+        {
+          "id": 292,
+          "label": "row-292",
+          "value": 876
+        },
+        {
+          "id": 293,
+          "label": "row-293",
+          "value": 879
+        },
+        {
+          "id": 294,
+          "label": "row-294",
+          "value": 882
+        },
+        {
+          "id": 295,
+          "label": "row-295",
+          "value": 885
+        },
+        {
+          "id": 296,
+          "label": "row-296",
+          "value": 888
+        },
+        {
+          "id": 297,
+          "label": "row-297",
+          "value": 891
+        },
+        {
+          "id": 298,
+          "label": "row-298",
+          "value": 894
+        },
+        {
+          "id": 299,
+          "label": "row-299",
+          "value": 897
+        }
+      ],
+      "name": "tabular_rows_strategy",
+      "query": null,
+      "schema_hint": "tabular"
+    },
+    {
+      "budget": 150,
+      "golden_content": "id,value,label\n0,0,row-0\n1,3,row-1\n2,6,row-2\n3,9,row-3\n4,12,row-4\n5,15,row-5\n6,18,row-6\n7,21,row-7\n8,24,row-8\n9,27,row-9\n10,30,row-10\n11,33,row-11\n12,36,row-12\n13,39,row-13\n14,42,row-14\n15,45,row-15\n16,48,row-16\n17,51,row-17\n18,54,row-18\n19,57,row-19\n...+160 rows dropped...\n180,540,row-180\n181,543,row-181\n182,546,row-182\n183,549,row-183\n184,552,row-184\n185,555,row-185\n186,558,row-186\n187,561,row-187\n188,564,row-188\n189,567,row-189\n190,570,row-190\n191,573,row-191\n192,576,row-192\n193,579,row-193\n194,582,row-194\n195,585,row-195\n196,588,row-196\n197,591,row-197\n198,594,row-198\n199,597,row-199",
+      "golden_strategy": "tabular",
+      "golden_truncated": true,
+      "input": "id,value,label\n0,0,row-0\n1,3,row-1\n2,6,row-2\n3,9,row-3\n4,12,row-4\n5,15,row-5\n6,18,row-6\n7,21,row-7\n8,24,row-8\n9,27,row-9\n10,30,row-10\n11,33,row-11\n12,36,row-12\n13,39,row-13\n14,42,row-14\n15,45,row-15\n16,48,row-16\n17,51,row-17\n18,54,row-18\n19,57,row-19\n20,60,row-20\n21,63,row-21\n22,66,row-22\n23,69,row-23\n24,72,row-24\n25,75,row-25\n26,78,row-26\n27,81,row-27\n28,84,row-28\n29,87,row-29\n30,90,row-30\n31,93,row-31\n32,96,row-32\n33,99,row-33\n34,102,row-34\n35,105,row-35\n36,108,row-36\n37,111,row-37\n38,114,row-38\n39,117,row-39\n40,120,row-40\n41,123,row-41\n42,126,row-42\n43,129,row-43\n44,132,row-44\n45,135,row-45\n46,138,row-46\n47,141,row-47\n48,144,row-48\n49,147,row-49\n50,150,row-50\n51,153,row-51\n52,156,row-52\n53,159,row-53\n54,162,row-54\n55,165,row-55\n56,168,row-56\n57,171,row-57\n58,174,row-58\n59,177,row-59\n60,180,row-60\n61,183,row-61\n62,186,row-62\n63,189,row-63\n64,192,row-64\n65,195,row-65\n66,198,row-66\n67,201,row-67\n68,204,row-68\n69,207,row-69\n70,210,row-70\n71,213,row-71\n72,216,row-72\n73,219,row-73\n74,222,row-74\n75,225,row-75\n76,228,row-76\n77,231,row-77\n78,234,row-78\n79,237,row-79\n80,240,row-80\n81,243,row-81\n82,246,row-82\n83,249,row-83\n84,252,row-84\n85,255,row-85\n86,258,row-86\n87,261,row-87\n88,264,row-88\n89,267,row-89\n90,270,row-90\n91,273,row-91\n92,276,row-92\n93,279,row-93\n94,282,row-94\n95,285,row-95\n96,288,row-96\n97,291,row-97\n98,294,row-98\n99,297,row-99\n100,300,row-100\n101,303,row-101\n102,306,row-102\n103,309,row-103\n104,312,row-104\n105,315,row-105\n106,318,row-106\n107,321,row-107\n108,324,row-108\n109,327,row-109\n110,330,row-110\n111,333,row-111\n112,336,row-112\n113,339,row-113\n114,342,row-114\n115,345,row-115\n116,348,row-116\n117,351,row-117\n118,354,row-118\n119,357,row-119\n120,360,row-120\n121,363,row-121\n122,366,row-122\n123,369,row-123\n124,372,row-124\n125,375,row-125\n126,378,row-126\n127,381,row-127\n128,384,row-128\n129,387,row-129\n130,390,row-130\n131,393,row-131\n132,396,row-132\n133,399,row-133\n134,402,row-134\n135,405,row-135\n136,408,row-136\n137,411,row-137\n138,414,row-138\n139,417,row-139\n140,420,row-140\n141,423,row-141\n142,426,row-142\n143,429,row-143\n144,432,row-144\n145,435,row-145\n146,438,row-146\n147,441,row-147\n148,444,row-148\n149,447,row-149\n150,450,row-150\n151,453,row-151\n152,456,row-152\n153,459,row-153\n154,462,row-154\n155,465,row-155\n156,468,row-156\n157,471,row-157\n158,474,row-158\n159,477,row-159\n160,480,row-160\n161,483,row-161\n162,486,row-162\n163,489,row-163\n164,492,row-164\n165,495,row-165\n166,498,row-166\n167,501,row-167\n168,504,row-168\n169,507,row-169\n170,510,row-170\n171,513,row-171\n172,516,row-172\n173,519,row-173\n174,522,row-174\n175,525,row-175\n176,528,row-176\n177,531,row-177\n178,534,row-178\n179,537,row-179\n180,540,row-180\n181,543,row-181\n182,546,row-182\n183,549,row-183\n184,552,row-184\n185,555,row-185\n186,558,row-186\n187,561,row-187\n188,564,row-188\n189,567,row-189\n190,570,row-190\n191,573,row-191\n192,576,row-192\n193,579,row-193\n194,582,row-194\n195,585,row-195\n196,588,row-196\n197,591,row-197\n198,594,row-198\n199,597,row-199",
+      "name": "tabular_csv_text_strategy",
+      "query": null,
+      "schema_hint": null
+    },
+    {
+      "budget": 100,
+      "golden_content": "The outage began at 03:14 UTC and affected the west region. Diagnostic step 0 found nothing conclusive and logs for shard 0 were inconclusive as well. [...] Diagnostic step 59 found nothing conclusive and logs for shard 59 were inconclusive as well. Root cause was a stale DNS record fixed at 04:02 UTC, and the incident closed clean.",
+      "golden_strategy": "text",
+      "golden_truncated": true,
+      "input": "The outage began at 03:14 UTC and affected the west region. Diagnostic step 0 found nothing conclusive and logs for shard 0 were inconclusive as well. Diagnostic step 1 found nothing conclusive and logs for shard 1 were inconclusive as well. Diagnostic step 2 found nothing conclusive and logs for shard 2 were inconclusive as well. Diagnostic step 3 found nothing conclusive and logs for shard 3 were inconclusive as well. Diagnostic step 4 found nothing conclusive and logs for shard 4 were inconclusive as well. Diagnostic step 5 found nothing conclusive and logs for shard 5 were inconclusive as well. Diagnostic step 6 found nothing conclusive and logs for shard 6 were inconclusive as well. Diagnostic step 7 found nothing conclusive and logs for shard 7 were inconclusive as well. Diagnostic step 8 found nothing conclusive and logs for shard 8 were inconclusive as well. Diagnostic step 9 found nothing conclusive and logs for shard 9 were inconclusive as well. Diagnostic step 10 found nothing conclusive and logs for shard 10 were inconclusive as well. Diagnostic step 11 found nothing conclusive and logs for shard 11 were inconclusive as well. Diagnostic step 12 found nothing conclusive and logs for shard 12 were inconclusive as well. Diagnostic step 13 found nothing conclusive and logs for shard 13 were inconclusive as well. Diagnostic step 14 found nothing conclusive and logs for shard 14 were inconclusive as well. Diagnostic step 15 found nothing conclusive and logs for shard 15 were inconclusive as well. Diagnostic step 16 found nothing conclusive and logs for shard 16 were inconclusive as well. Diagnostic step 17 found nothing conclusive and logs for shard 17 were inconclusive as well. Diagnostic step 18 found nothing conclusive and logs for shard 18 were inconclusive as well. Diagnostic step 19 found nothing conclusive and logs for shard 19 were inconclusive as well. Diagnostic step 20 found nothing conclusive and logs for shard 20 were inconclusive as well. Diagnostic step 21 found nothing conclusive and logs for shard 21 were inconclusive as well. Diagnostic step 22 found nothing conclusive and logs for shard 22 were inconclusive as well. Diagnostic step 23 found nothing conclusive and logs for shard 23 were inconclusive as well. Diagnostic step 24 found nothing conclusive and logs for shard 24 were inconclusive as well. Diagnostic step 25 found nothing conclusive and logs for shard 25 were inconclusive as well. Diagnostic step 26 found nothing conclusive and logs for shard 26 were inconclusive as well. Diagnostic step 27 found nothing conclusive and logs for shard 27 were inconclusive as well. Diagnostic step 28 found nothing conclusive and logs for shard 28 were inconclusive as well. Diagnostic step 29 found nothing conclusive and logs for shard 29 were inconclusive as well. Diagnostic step 30 found nothing conclusive and logs for shard 30 were inconclusive as well. Diagnostic step 31 found nothing conclusive and logs for shard 31 were inconclusive as well. Diagnostic step 32 found nothing conclusive and logs for shard 32 were inconclusive as well. Diagnostic step 33 found nothing conclusive and logs for shard 33 were inconclusive as well. Diagnostic step 34 found nothing conclusive and logs for shard 34 were inconclusive as well. Diagnostic step 35 found nothing conclusive and logs for shard 35 were inconclusive as well. Diagnostic step 36 found nothing conclusive and logs for shard 36 were inconclusive as well. Diagnostic step 37 found nothing conclusive and logs for shard 37 were inconclusive as well. Diagnostic step 38 found nothing conclusive and logs for shard 38 were inconclusive as well. Diagnostic step 39 found nothing conclusive and logs for shard 39 were inconclusive as well. Diagnostic step 40 found nothing conclusive and logs for shard 40 were inconclusive as well. Diagnostic step 41 found nothing conclusive and logs for shard 41 were inconclusive as well. Diagnostic step 42 found nothing conclusive and logs for shard 42 were inconclusive as well. Diagnostic step 43 found nothing conclusive and logs for shard 43 were inconclusive as well. Diagnostic step 44 found nothing conclusive and logs for shard 44 were inconclusive as well. Diagnostic step 45 found nothing conclusive and logs for shard 45 were inconclusive as well. Diagnostic step 46 found nothing conclusive and logs for shard 46 were inconclusive as well. Diagnostic step 47 found nothing conclusive and logs for shard 47 were inconclusive as well. Diagnostic step 48 found nothing conclusive and logs for shard 48 were inconclusive as well. Diagnostic step 49 found nothing conclusive and logs for shard 49 were inconclusive as well. Diagnostic step 50 found nothing conclusive and logs for shard 50 were inconclusive as well. Diagnostic step 51 found nothing conclusive and logs for shard 51 were inconclusive as well. Diagnostic step 52 found nothing conclusive and logs for shard 52 were inconclusive as well. Diagnostic step 53 found nothing conclusive and logs for shard 53 were inconclusive as well. Diagnostic step 54 found nothing conclusive and logs for shard 54 were inconclusive as well. Diagnostic step 55 found nothing conclusive and logs for shard 55 were inconclusive as well. Diagnostic step 56 found nothing conclusive and logs for shard 56 were inconclusive as well. Diagnostic step 57 found nothing conclusive and logs for shard 57 were inconclusive as well. Diagnostic step 58 found nothing conclusive and logs for shard 58 were inconclusive as well. Diagnostic step 59 found nothing conclusive and logs for shard 59 were inconclusive as well. Root cause was a stale DNS record fixed at 04:02 UTC, and the incident closed clean.",
+      "name": "text_strategy",
+      "query": "root cause",
+      "schema_hint": null
+    }
+  ],
+  "frozen_at_date": "2026-08-14",
+  "frozen_at_package_version": "0.1.0",
+  "note": "Cross-version stability guard (board 19). If a future code change alters distill() output for ANY of these unchanged (input, budget, schema_hint, query) tuples, the golden-output test fails loudly. Regenerate ONLY on a deliberate, documented output-format change -- never to silence a failing test.",
+  "schema_version": "arcaeon-distill-golden:v1"
+}

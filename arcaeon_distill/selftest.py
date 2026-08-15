@@ -59,11 +59,16 @@ def run() -> int:
 
     print("== golden vectors (schema + digest enforcement) ==")
     result = distill(FIXTURE, budget=FIXTURE_BUDGET)
+    # distill() is called here with its default receipt=True (never passed
+    # False below), so .receipt is guaranteed non-None — narrow it once,
+    # here, rather than asserting/casting at every access site below.
+    assert result.receipt is not None, "distill(receipt=True) must return a receipt"
+    receipt = result.receipt
     checks = [
-        ("full.digest", result.receipt.full["digest"], GOLDEN_FULL_DIGEST),
-        ("distilled.digest", result.receipt.distilled["digest"], GOLDEN_DISTILLED_DIGEST),
-        ("drops[body].digest", result.receipt.drops[0]["digest"], GOLDEN_BODY_DROP_DIGEST),
-        ("drops[tags].digest", result.receipt.drops[1]["digest"], GOLDEN_TAGS_DROP_DIGEST),
+        ("full.digest", receipt.full["digest"], GOLDEN_FULL_DIGEST),
+        ("distilled.digest", receipt.distilled["digest"], GOLDEN_DISTILLED_DIGEST),
+        ("drops[body].digest", receipt.drops[0]["digest"], GOLDEN_BODY_DROP_DIGEST),
+        ("drops[tags].digest", receipt.drops[1]["digest"], GOLDEN_TAGS_DROP_DIGEST),
     ]
     for name, got, want in checks:
         ok = got == want
@@ -80,7 +85,7 @@ def run() -> int:
     print(f"  {'PASS' if ok else 'FAIL'}  5 runs collapse to one distilled output")
 
     print("== planted inconsistency (truncated flag disagrees with drops) ==")
-    honest = result.receipt
+    honest = receipt
     v_honest = verify_receipt(honest)
     ok = v_honest["ok"]
     failures += 0 if ok else 1

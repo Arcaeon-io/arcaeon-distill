@@ -70,6 +70,16 @@ no unstable tie-breaking anywhere in the ranking or truncation logic. Call
 `distill()` twice on the same tool output and a provider's prompt cache sees
 the same bytes twice — not a new prefix to write and bill for.
 
+**This property is regression-guarded, not just asserted.** `test_distill.py`
+checks it three ways: same-process (repeated calls in one interpreter),
+cross-process (the same input distilled in two independent python
+interpreters, stdout diffed byte-for-byte — rules out anything that could
+vary run-to-run, like hash-seed-driven ordering, that a same-process check
+can't catch), and cross-version (`golden_fixtures.json` freezes the exact
+output for four representative inputs at package version 0.1.0 — any future
+code change that alters output for one of those unchanged inputs fails the
+suite loudly, instead of silently shipping a cache-busting regression).
+
 ## Three strategies, picked from the input's shape
 
 ```python
