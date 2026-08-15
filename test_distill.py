@@ -497,6 +497,75 @@ def test_tabular_hint_on_a_dict_does_not_silently_distill_the_keys():
     print("PASS schema_hint='tabular' on a dict raises instead of distilling the key names")
 
 
+def test_shared_reference_is_accepted_not_rejected_as_cycle():
+    """H2 (scrutiny 2026-08-15): a value referenced twice is a DAG, not a
+    cycle. json.dumps handles it fine; the old admission walker's global
+    `seen` set (never popped on backtrack) refused it as "a reference
+    cycle" -- a false message on valid, JSON-serializable input."""
+    shared = [1, 2, 3]
+    data = {"a": shared, "b": shared}
+    result = distill(data, budget=200)
+    assert result.content == {"a": [1, 2, 3], "b": [1, 2, 3]}
+    assert result.receipt is not None  # receipt=True is distill()'s default
+    v = verify_receipt(result.receipt)
+    assert v["ok"], v
+    # a value shared three ways, and nested, still isn't a cycle
+    nested_shared = {"x": 1}
+    data2 = {"a": [nested_shared, nested_shared], "b": nested_shared}
+    result2 = distill(data2, budget=200)
+    assert result2.content == {"a": [{"x": 1}, {"x": 1}], "b": {"x": 1}}
+    print("PASS shared reference (DAG) is accepted, not refused as a cycle")
+
+
+def test_true_reference_cycle_is_still_rejected():
+    """The H2 fix must not turn off real-cycle detection. A container that
+    contains itself (directly or through one hop) still raises -- otherwise
+    `_walk_json` would recurse it to a RecursionError instead of a clean,
+    typed refusal at the door."""
+    self_referencing_list: list = []
+    self_referencing_list.append(self_referencing_list)
+    try:
+        distill(self_referencing_list, budget=200)
+        assert False, "a list containing itself was accepted"
+    except ValueError as e:
+        assert "reference cycle" in str(e)
+
+    a: dict = {}
+    b = {"a": a}
+    a["b"] = b
+    try:
+        distill(a, budget=200)
+        assert False, "an indirect a->b->a cycle was accepted"
+    except ValueError as e:
+        assert "reference cycle" in str(e)
+    print("PASS a real reference cycle (direct and indirect) is still refused")
+
+
+def test_wide_dict_budget_is_enforced():
+    """M1 (scrutiny 2026-08-15): the json strategy capped string length and
+    list length but never dict BREADTH, so a wide dict (many keys -- an
+    id->status map, a flat config) blew the budget ~194x with
+    truncated=False (honest -- nothing was cut -- but misleading, since
+    ordinary-shaped input was expected to land near budget). A dict-key cap
+    now shrinks alongside str_cap/list_cap; the drop is recorded like any
+    other, not silently absorbed."""
+    data = {f"key_{i}": i for i in range(5000)}
+    result = distill(data, budget=100)  # char_budget = 400
+    est_size = len(json.dumps(result.content, ensure_ascii=False, separators=(",", ":")))
+    assert result.truncated
+    assert est_size < 4 * 400, (  # was ~194x over; must now be in the same ballpark as budget
+        f"wide dict still blew the budget: {est_size} chars vs a 400-char budget")
+    assert result.receipt is not None
+    kinds = {d["kind"] for d in result.receipt.drops}
+    assert "dict_truncated" in kinds
+    assert "__distilled_dropped_keys__" in result.content
+    v = verify_receipt(result.receipt)
+    assert v["ok"], v
+    print(f"PASS wide dict (5000 keys, budget 100) now truncates: "
+          f"{est_size} chars (was 194.4x over budget pre-fix), truncated=True, "
+          f"dict_truncated recorded, verify_receipt ok")
+
+
 def test_cross_process_determinism_on_an_adversarial_payload():
     """The JSON-transport guard can't express a hostile payload, so build one
     INSIDE the worker: long equal-length values (ranking ties), nested dicts

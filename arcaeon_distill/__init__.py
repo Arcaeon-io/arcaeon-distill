@@ -16,10 +16,15 @@ feature list).
 Three built-in strategies, picked automatically from the input's shape (or
 forced with `schema_hint`):
 
-  - **json**    dict/list input (or a str that parses as JSON). Every key is
-                kept; long string values are truncated with a "+N more chars"
-                count; long list values keep a head/tail slice with a
-                "...+N more items" marker in place of the middle.
+  - **json**    dict/list input (or a str that parses as JSON). Every key of
+                a RETAINED value is kept — a dict/list element cut whole by
+                truncation takes its keys with it (see "list_truncated" /
+                "dict_truncated" below); long string values are truncated
+                with a "+N more chars" count; long list values keep a
+                head/tail slice with a "...+N more items" marker in place of
+                the middle; a wide dict (many keys — an id->status map, a
+                flat config) keeps a head/tail slice of KEYS the same way,
+                with a "__distilled_dropped_keys__" count marker.
   - **tabular** list-of-dicts, list-of-lists, or CSV/TSV/markdown-table text.
                 Keeps the header, a head slice and a tail slice of rows, and
                 a dropped-row count in between.
@@ -104,7 +109,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Optional
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 __all__ = [
     "distill", "estimate_tokens", "DistilledResult", "DropReceipt",
     "verify_receipt", "SCHEMA",
@@ -205,8 +210,8 @@ class DropReceipt:
     """What `distill()` cut, provably.
 
     `drops` is a list of dicts, each:
-      {"kind": "string_truncated" | "list_truncated" | "rows_dropped"
-               | "sentences_dropped",
+      {"kind": "string_truncated" | "list_truncated" | "dict_truncated"
+               | "rows_dropped" | "sentences_dropped",
        "path": <str, best-effort location: a JSON-path-ish string,
                 a row range, or "text">,
        "digest": <self-describing digest of the CUT content, so a holder of
@@ -214,9 +219,15 @@ class DropReceipt:
        "dropped_bytes": <int>,
        "dropped_count": <int, item/row/char count as appropriate>}
 
-    Digests are of the DROPPED content only — never the kept content and
-    never the full input verbatim — so the receipt can be handed to a third
-    party without also handing them the input it distilled.
+    Each per-drop digest is of the DROPPED content only. The receipt ALSO
+    carries a one-way digest of the full input (`full.digest`) and of the
+    distilled output (`distilled.digest`); no content is ever carried
+    verbatim. These are hashes, not encryption: `full.digest` is a
+    confirmation oracle, so any low-entropy part of the input (a short code,
+    a boolean, a value from a known small set) is brute-forceable from the
+    receipt whether it was kept or cut. Ship a receipt freely when the
+    input's unknown parts are high-entropy; treat it as sensitively as the
+    input when they are not.
     """
     schema: str
     strategy: str
@@ -348,23 +359,58 @@ class DistilledResult:
 
 _DEFAULT_STR_CAP = 300
 _DEFAULT_LIST_CAP = 20
+_DEFAULT_DICT_CAP = 200
 _MIN_STR_CAP = 20
 _MIN_LIST_CAP = 2
+_MIN_DICT_CAP = 4
 _MAX_SHRINK_ITERS = 12
 
+# Sentinel key for the dict-breadth drop marker (M1, 2026-08-15). Chosen to
+# match the existing tabular-strategy precedent (`__distilled_dropped_rows__`)
+# rather than inventing a new naming convention. Collides only if the input
+# itself legitimately used this exact key, which is the same accepted
+# edge-case the tabular marker already carries.
+_DICT_DROP_MARKER_KEY = "__distilled_dropped_keys__"
 
-def _walk_json(obj: Any, str_cap: int, list_cap: int, path: str, drops: list) -> Any:
+
+def _walk_json(obj: Any, str_cap: int, list_cap: int, dict_cap: int, path: str, drops: list) -> Any:
     if isinstance(obj, dict):
-        return {k: _walk_json(v, str_cap, list_cap, f"{path}.{k}" if path else str(k), drops)
+        if len(obj) > dict_cap:
+            items = list(obj.items())
+            head_n = (dict_cap + 1) // 2
+            tail_n = dict_cap - head_n
+            head = items[:head_n]
+            tail_start = len(items) - tail_n
+            tail = items[tail_start:] if tail_n else []
+            dropped_items = items[head_n:tail_start]
+            result = {k: _walk_json(v, str_cap, list_cap, dict_cap,
+                                     f"{path}.{k}" if path else str(k), drops)
+                      for k, v in head}
+            result[_DICT_DROP_MARKER_KEY] = len(dropped_items)
+            for k, v in tail:
+                result[k] = _walk_json(v, str_cap, list_cap, dict_cap,
+                                        f"{path}.{k}" if path else str(k), drops)
+            dropped_blob = dict(dropped_items)
+            drops.append({
+                "kind": "dict_truncated",
+                "path": path or "$",
+                "digest": _digest_json_c14n(dropped_blob),
+                "dropped_bytes": len(json.dumps(dropped_blob, ensure_ascii=False,
+                                                 separators=(",", ":")).encode("utf-8")),
+                "dropped_count": len(dropped_items),
+            })
+            return result
+        return {k: _walk_json(v, str_cap, list_cap, dict_cap,
+                               f"{path}.{k}" if path else str(k), drops)
                 for k, v in obj.items()}
     if isinstance(obj, list):
         if len(obj) > list_cap:
             head_n = (list_cap + 1) // 2
             tail_n = list_cap - head_n
-            head = [_walk_json(it, str_cap, list_cap, f"{path}[{i}]", drops)
+            head = [_walk_json(it, str_cap, list_cap, dict_cap, f"{path}[{i}]", drops)
                     for i, it in enumerate(obj[:head_n])]
             tail_start = len(obj) - tail_n
-            tail = [_walk_json(it, str_cap, list_cap, f"{path}[{tail_start + j}]", drops)
+            tail = [_walk_json(it, str_cap, list_cap, dict_cap, f"{path}[{tail_start + j}]", drops)
                     for j, it in enumerate(obj[tail_start:])] if tail_n else []
             dropped_slice = obj[head_n:tail_start]
             marker = f"...+{len(dropped_slice)} more items"
@@ -377,7 +423,7 @@ def _walk_json(obj: Any, str_cap: int, list_cap: int, path: str, drops: list) ->
                 "dropped_count": len(dropped_slice),
             })
             return head + [marker] + tail
-        return [_walk_json(it, str_cap, list_cap, f"{path}[{i}]", drops)
+        return [_walk_json(it, str_cap, list_cap, dict_cap, f"{path}[{i}]", drops)
                 for i, it in enumerate(obj)]
     if isinstance(obj, str):
         if len(obj) > str_cap:
@@ -397,18 +443,30 @@ def _walk_json(obj: Any, str_cap: int, list_cap: int, path: str, drops: list) ->
 def _distill_json(parsed: Any, char_budget: int) -> tuple:
     """Returns (content, drops, truncated). Shrinks caps deterministically
     until under budget or the floor is reached; same input always walks the
-    same sequence of caps."""
-    str_cap, list_cap = _DEFAULT_STR_CAP, _DEFAULT_LIST_CAP
+    same sequence of caps.
+
+    Shrinks `dict_cap` alongside `str_cap`/`list_cap` (M1, 2026-08-15): a
+    wide dict (many keys, e.g. an id->status map) has no cap at all in the
+    prior version, so it could land ~100x+ over budget with `truncated=False`
+    -- an honest flag (nothing WAS cut) that nonetheless misled a reader who
+    assumed json-strategy inputs stay near budget. A wide dict now truncates
+    the same way a long list does: head/tail keys kept, a
+    `__distilled_dropped_keys__` count marker in between, a `dict_truncated`
+    drop recorded.
+    """
+    str_cap, list_cap, dict_cap = _DEFAULT_STR_CAP, _DEFAULT_LIST_CAP, _DEFAULT_DICT_CAP
     content, drops = parsed, []
     for _ in range(_MAX_SHRINK_ITERS):
         drops = []
-        content = _walk_json(parsed, str_cap, list_cap, "", drops)
+        content = _walk_json(parsed, str_cap, list_cap, dict_cap, "", drops)
         size = len(json.dumps(content, ensure_ascii=False, separators=(",", ":"),
                               allow_nan=False))
-        if size <= char_budget or (str_cap <= _MIN_STR_CAP and list_cap <= _MIN_LIST_CAP):
+        if size <= char_budget or (str_cap <= _MIN_STR_CAP and list_cap <= _MIN_LIST_CAP
+                                    and dict_cap <= _MIN_DICT_CAP):
             break
         str_cap = max(_MIN_STR_CAP, str_cap // 2)
         list_cap = max(_MIN_LIST_CAP, list_cap // 2)
+        dict_cap = max(_MIN_DICT_CAP, dict_cap // 2)
     return content, drops, bool(drops)
 
 
@@ -675,17 +733,47 @@ def _detect_strategy(tool_output: Any, schema_hint: Optional[str]) -> tuple:
 
 _JSON_SCALARS = (str, int, float, bool)
 
+# Sentinel pushed onto the admission-walk stack to mark "all children of this
+# container have been queued; when THIS comes back off the stack, the
+# container's subtree is fully explored." Paired with `on_path` below, it
+# turns a flat "have we ever seen this id" set (which can never tell a true
+# cycle from a value referenced twice) into a real per-branch ancestor set.
+_EXIT_MARKER = object()
+
 
 def _reject_undistillable(value: Any, path: str = "input") -> None:
     """Raise TypeError/ValueError on input with no deterministic serialization.
 
     Checked once at the door rather than five levels down inside `json`, so
     the failure names the offending path and says what to do about it.
+
+    Cycle vs. shared reference (H2, 2026-08-15): a prior version tracked one
+    global `seen` set of `id(v)` that was never popped, so ANY value visited
+    twice — including a legitimate shared reference like
+    `x = [1, 2, 3]; {"a": x, "b": x}`, which `json.dumps` handles fine — was
+    refused as "a reference cycle." That message was false: the input wasn't
+    cyclic, it was a DAG. The fix tracks two sets instead of one:
+      - `on_path`: ids of containers on the CURRENT DFS branch (real
+        ancestors). A hit here means `v` contains itself — an actual cycle.
+      - `cleared`: ids of containers already walked clean via SOME branch.
+        A hit here is a shared reference: safe, and skipped rather than
+        re-walked, so a value referenced N times isn't re-verified N times
+        (avoids exponential blowup on a diamond-shaped/heavily-shared DAG).
+    An id enters `on_path` when a container starts being processed and
+    leaves it via its `_EXIT_MARKER` popping back off the stack — i.e. only
+    once every descendant has been queued. Because the walk is iterative
+    (not recursive), that hand-off point has to be represented explicitly on
+    the stack rather than falling out of a function return.
     """
     stack = [(value, path)]
-    seen = set()
+    on_path: set = set()
+    cleared: set = set()
     while stack:
         v, at = stack.pop()
+        if v is _EXIT_MARKER:
+            on_path.discard(at)  # `at` holds the id for an exit frame
+            cleared.add(at)
+            continue
         if v is None or isinstance(v, (bytes, bytearray, str, bool)):
             continue
         if isinstance(v, int):
@@ -696,22 +784,26 @@ def _reject_undistillable(value: Any, path: str = "input") -> None:
                     f"{at}: NaN/Infinity is not JSON and has no stable "
                     f"serialization; use None or a string instead")
             continue
-        if id(v) in seen:
-            raise ValueError(f"{at}: input contains a reference cycle")
-        seen.add(id(v))
-        if isinstance(v, dict):
-            for k, sub in v.items():
-                if not isinstance(k, str):
-                    raise TypeError(
-                        f"{at}: dict key {k!r} is {type(k).__name__}, not str. "
-                        f"json canonicalization coerces it to a string, so "
-                        f"{{1: x}} and {{'1': x}} would share one receipt "
-                        f"digest. Convert the keys first.")
-                stack.append((sub, f"{at}[{k!r}]"))
-            continue
-        if isinstance(v, (list, tuple)):
-            for i, sub in enumerate(v):
-                stack.append((sub, f"{at}[{i}]"))
+        if isinstance(v, (dict, list, tuple)):
+            vid = id(v)
+            if vid in on_path:
+                raise ValueError(f"{at}: input contains a reference cycle")
+            if vid in cleared:
+                continue  # already verified via another path -- shared ref
+            on_path.add(vid)
+            stack.append((_EXIT_MARKER, vid))
+            if isinstance(v, dict):
+                for k, sub in v.items():
+                    if not isinstance(k, str):
+                        raise TypeError(
+                            f"{at}: dict key {k!r} is {type(k).__name__}, not str. "
+                            f"json canonicalization coerces it to a string, so "
+                            f"{{1: x}} and {{'1': x}} would share one receipt "
+                            f"digest. Convert the keys first.")
+                    stack.append((sub, f"{at}[{k!r}]"))
+            else:
+                for i, sub in enumerate(v):
+                    stack.append((sub, f"{at}[{i}]"))
             continue
         if isinstance(v, (set, frozenset)):
             raise TypeError(

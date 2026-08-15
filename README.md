@@ -86,10 +86,14 @@ suite loudly, instead of silently shipping a cache-busting regression).
 distill(tool_output, budget=2000, schema_hint=None, query=None, receipt=True)
 ```
 
-- **json** — dict/list input (or a str that parses as JSON). Every key is
-  kept; long string values are truncated with a `"...+412 more chars"`
-  count; long list values keep a head/tail slice with an
-  `"...+412 more items"` marker where the middle used to be.
+- **json** — dict/list input (or a str that parses as JSON). Every key of a
+  **retained** value is kept — a dict/list element cut whole by truncation
+  takes its keys with it, the same way a dropped row takes its columns.
+  Long string values are truncated with a `"...+412 more chars"` count;
+  long list values keep a head/tail slice with an `"...+412 more items"`
+  marker where the middle used to be; a **wide dict** (many keys — an
+  id→status map, a flat config) keeps a head/tail slice of *keys* the same
+  way, with a `"__distilled_dropped_keys__"` count marker.
 - **tabular** — list-of-dicts, list-of-lists, or CSV/TSV/markdown-table
   text. Keeps the header, a head slice and a tail slice of rows, and a
   dropped-row count between them.
@@ -120,14 +124,21 @@ result.receipt.drops
 #   "dropped_count": 40100}, ...]
 ```
 
-Digests are of the **dropped content only** — self-describing
+Each **per-drop** digest is of the dropped content only; the receipt also
+carries a one-way digest of the full input (`full.digest`) and of the
+distilled output (`distilled.digest`) — the `result.receipt.full` /
+`.distilled` fields shown above. All are self-describing
 (`sha256:<recipe>:<version>:<hex>`), compatible with
 [`arcaeon-ledger`](https://pypi.org/project/arcaeon-ledger/)'s format so a
 receipt travels cleanly into a chain, but `arcaeon_distill` never *requires*
-`arcaeon-ledger` to be installed. The kept content is never re-hashed into
-the receipt and the cut content is never carried verbatim — a receipt can be
-logged, shipped, or handed to a third party without leaking what was cut,
-only proving that something was and how much.
+`arcaeon-ledger` to be installed. No content — kept or cut — is ever carried
+*verbatim*, so a receipt never reproduces the input. But these are **hashes,
+not encryption**: a digest is a confirmation oracle. Anyone holding the
+receipt can confirm a *guessed* value by re-hashing it, so any low-entropy
+part of the input — a 4-digit code, a boolean, a value from a known small
+set — is recoverable by brute force from `full.digest`, whether it was kept
+or cut. The receipt is safe to log or ship when the input's unknown parts are
+high-entropy; treat it as sensitive as the input itself when they are not.
 
 ```python
 from arcaeon_distill import verify_receipt

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "arcaeon-distill"
-version = "0.1.1"
+version = "0.1.2"
 description = "Deterministic, cache-stable tool-output distiller for AI agents. Fits more signal in the context budget; keeps a drop receipt for what got cut."
 readme = "README.md"
 requires-python = ">=3.9"
