@@ -13,12 +13,17 @@ pip install arcaeon-distill     # then:  from arcaeon_distill import distill
 ```python
 from arcaeon_distill import distill
 
-huge = call_some_api()          # 40k tokens of JSON, most of it noise
+def call_some_api():             # stand-in for your real tool call
+    return {"items": [{"id": i, "sku": f"WID-{i:04d}", "in_stock": i % 3 == 0,
+                       "description": "a durable stainless widget, " * 12}
+                      for i in range(300)]}
+
+huge = call_some_api()          # ~30k tokens of JSON, most of it noise
 result = distill(huge, budget=500)
 
 result.content          # the compacted structure — keys kept, values capped
 result.receipt          # DropReceipt: prove what got cut, re-fetch if it mattered
-print(result)            # "distilled via json: 41302 -> 483 est. tokens (~99% cut, ...)"
+print(result)           # "distilled via json: 29800 -> 200 est. tokens (~99% cut, budget 500, truncated=True)"
 ```
 
 ## Read this before the features: token reduction is not cost reduction
@@ -131,9 +136,11 @@ silently, versus one that's tamper-evidently honest about the loss.
 Chain a receipt onto a tamper-evident ledger (optional — this is the only
 place `arcaeon-ledger` is ever touched):
 
-```python
-pip install arcaeon-distill[ledger]     # or: pip install arcaeon-ledger
+```bash
+pip install "arcaeon-distill[ledger]"   # or: pip install arcaeon-ledger
+```
 
+```python
 result.receipt.seal("receipts.jsonl", distiller="my-agent-v3")
 # -> chained row, same tamper-evidence as any other arcaeon-ledger entry
 ```
