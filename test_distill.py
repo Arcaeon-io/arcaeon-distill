@@ -149,7 +149,13 @@ if receipt is not None:
     receipt.pop("created_at", None)  # wall-clock, expected to differ -- see _stable_receipt
 out = {"content": result.content, "strategy": result.strategy,
        "truncated": result.truncated, "receipt_stable": receipt}
-sys.stdout.write(json.dumps(out, sort_keys=True, ensure_ascii=False))
+# sort_keys=False deliberately: dict KEY ORDER is part of the bytes an LLM and
+# a prefix cache see, and it is the one thing PYTHONHASHSEED could plausibly
+# move. sort_keys=True erased exactly what this guard exists to pin. Writing
+# encoded bytes (not text) keeps a non-ASCII fixture from dying on a cp1252
+# console.
+sys.stdout.buffer.write(json.dumps(out, sort_keys=False,
+                                   ensure_ascii=False).encode("utf-8"))
 """
 
 
@@ -160,11 +166,12 @@ def _distill_in_subprocess(case: dict) -> str:
                            "schema_hint": case["schema_hint"], "query": case["query"]})
     proc = subprocess.run(
         [sys.executable, "-c", _CROSS_PROCESS_WORKER],
-        input=payload, capture_output=True, text=True, encoding="utf-8",
+        input=payload.encode("utf-8"), capture_output=True,
         cwd=str(Path(__file__).resolve().parent), timeout=30,
     )
     if proc.returncode != 0:
-        raise RuntimeError(f"cross-process worker for {case['name']!r} failed: {proc.stderr}")
+        raise RuntimeError(f"cross-process worker for {case['name']!r} failed: "
+                            f"{proc.stderr.decode('utf-8', 'replace')}")
     return proc.stdout
 
 
@@ -187,7 +194,15 @@ def test_golden_output_matches_frozen_v0_1_0():
         if case["query"] is not None:
             kwargs["query"] = case["query"]
         result = distill(case["input"], **kwargs)
-        assert result.content == case["golden_content"], (
+        # Compare SERIALIZED bytes, not the objects: `{"a":1,"b":2} ==
+        # {"b":2,"a":1}` is True in Python and False for every cache in front
+        # of this. The order-blind comparison would have passed a total
+        # rewrite of emitted key order.
+        got = json.dumps(result.content, ensure_ascii=False, separators=(",", ":"),
+                         sort_keys=False)
+        want = json.dumps(case["golden_content"], ensure_ascii=False,
+                          separators=(",", ":"), sort_keys=False)
+        assert got == want, (
             f"{case['name']}: output for this UNCHANGED input no longer matches "
             f"the frozen {_GOLDEN_FIXTURES['frozen_at_package_version']} golden "
             f"fixture -- distill() behavior changed for existing inputs")
@@ -363,6 +378,142 @@ def test_seal_without_ledger_raises_clear_error():
         print("PASS DropReceipt.seal() without arcaeon-ledger installed raises a clear ImportError")
         return
     print("PASS DropReceipt.seal() succeeded (arcaeon-ledger is installed in this env)")
+
+
+# ---------------------------------------------------------------------------
+# Input admission (audit 2026-08-14).
+#
+# The cache-stability claim is the product. Three input shapes broke it and no
+# downstream code path could repair them, so they are refused at the door. The
+# nastiest part: the cross-process guard above cannot SEE any of them, because
+# its transport is JSON and a set, a heap object, and a non-str dict key all
+# fail to cross a JSON pipe. A live hash seed with nothing to test.
+# ---------------------------------------------------------------------------
+
+_ADVERSARIAL_WORKER = r"""
+import sys
+from arcaeon_distill import distill
+payload = {"a" * 10: "x" * 200, "b" * 10: "y" * 200, "zz": {"n": 1, "m": 2}}
+r = distill(payload, budget=60, receipt=True)
+import json
+sys.stdout.buffer.write(json.dumps(
+    {"c": r.content, "d": r.receipt.to_dict()["full"]["digest"]},
+    sort_keys=False, ensure_ascii=False).encode("utf-8"))
+"""
+
+
+def test_arbitrary_object_is_refused_not_stringified():
+    """`str(obj)` embeds a heap address, so the documented "anything else is
+    stringified" path violated byte-identity on EVERY run (ASLR), not just
+    across machines."""
+    class ApiResponse:
+        def __init__(self):
+            self.rows = list(range(50))
+
+    for value in (ApiResponse(), object(), lambda x: x):
+        try:
+            distill(value, budget=200, receipt=False)
+            assert False, f"{type(value).__name__} was accepted"
+        except TypeError as e:
+            assert "deterministic" in str(e)
+    print("PASS an arbitrary object is a typed refusal, not a heap address in the output")
+
+
+def test_sets_are_refused():
+    """A set iterates in PYTHONHASHSEED order -- the textbook cross-process
+    nondeterminism, and unreachable by a JSON-transport guard."""
+    for value in ({"a", "b", "c"}, frozenset({"a", "b"}),
+                  {"rows": [{"tags": {"x", "y"}}]}):
+        try:
+            distill(value, budget=200, receipt=False)
+            assert False, f"{value!r} was accepted"
+        except TypeError as e:
+            assert "PYTHONHASHSEED" in str(e)
+    print("PASS set/frozenset input is refused, nested ones too")
+
+
+def test_non_string_dict_keys_are_refused():
+    """json.dumps coerces non-str keys, so {1: v} and {"1": v} -- unequal
+    inputs -- produced the SAME receipt digest. A digest that can't tell two
+    inputs apart cannot prove which output it describes."""
+    for value in ({1: "a" * 400}, {True: "x"}, {1.0: "x"},
+                  {"ok": {2: "nested"}}):
+        try:
+            distill(value, budget=100)
+            assert False, f"{value!r} was accepted"
+        except TypeError as e:
+            assert "not str" in str(e)
+    # and the collision it prevented is real, so pin the pair explicitly
+    a, b = {1: "a" * 400}, {"1": "a" * 400}
+    assert a != b
+    print("PASS non-str dict keys are refused (they collided two unequal inputs "
+          "onto one digest)")
+
+
+def test_nan_and_infinity_are_refused_consistently():
+    """The package disagreed with itself: receipt=True raised out of `json`,
+    receipt=False emitted the literals NaN/Infinity -- which are not JSON --
+    straight into an agent's context."""
+    for value in ({"x": float("nan"), "pad": "p" * 400},
+                  {"x": float("inf"), "pad": "p" * 400},
+                  [float("-inf")]):
+        for receipt in (True, False):
+            try:
+                distill(value, budget=50, receipt=receipt)
+                assert False, f"{value!r} accepted with receipt={receipt}"
+            except ValueError as e:
+                assert "NaN/Infinity" in str(e)
+    print("PASS NaN/Infinity refused identically with and without a receipt")
+
+
+def test_common_non_json_types_fail_typed():
+    import datetime as _dt
+    import decimal
+    for value in (_dt.datetime(2026, 8, 14), decimal.Decimal("1.5")):
+        try:
+            distill(value, budget=100)
+            assert False, f"{type(value).__name__} accepted"
+        except TypeError as e:
+            assert "deterministic serialization" in str(e)
+    print("PASS datetime/Decimal fail with a distill-level TypeError, not one "
+          "from inside json.encoder")
+
+
+def test_tabular_hint_on_a_dict_does_not_silently_distill_the_keys():
+    """`list(a_dict)` yields KEYS. schema_hint='tabular' on a dict threw away
+    every value, reported truncated=False with an empty drop list, and
+    verify_receipt certified it ok. Affirmatively certified total data loss."""
+    payload = {"rows": [{"id": 1}], "meta": {"page": 1}}
+    try:
+        distill(payload, budget=100, schema_hint="tabular")
+        assert False, "a dict was accepted as tabular"
+    except TypeError as e:
+        assert "list of row dicts" in str(e)
+    for bad in (12345, "x"):
+        try:
+            distill(bad, budget=100, schema_hint="tabular")
+        except (TypeError, ValueError):
+            pass
+    print("PASS schema_hint='tabular' on a dict raises instead of distilling the key names")
+
+
+def test_cross_process_determinism_on_an_adversarial_payload():
+    """The JSON-transport guard can't express a hostile payload, so build one
+    INSIDE the worker: long equal-length values (ranking ties), nested dicts
+    (key order), and two runs under different explicit hash seeds."""
+    import os
+    outs = []
+    for seed in ("0", "1", "12345"):
+        env = dict(os.environ, PYTHONHASHSEED=seed)
+        proc = subprocess.run(
+            [sys.executable, "-c", _ADVERSARIAL_WORKER], capture_output=True,
+            cwd=str(Path(__file__).resolve().parent), timeout=30, env=env)
+        assert proc.returncode == 0, proc.stderr.decode("utf-8", "replace")
+        outs.append(proc.stdout)
+    assert len(set(outs)) == 1, (
+        "the same payload distilled under PYTHONHASHSEED 0/1/12345 produced "
+        "different bytes -- real cross-process nondeterminism")
+    print("PASS adversarial payload is byte-identical under three explicit hash seeds")
 
 
 ALL_TESTS = [v for k, v in list(globals().items()) if k.startswith("test_")]

@@ -104,7 +104,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Optional
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __all__ = [
     "distill", "estimate_tokens", "DistilledResult", "DropReceipt",
     "verify_receipt", "SCHEMA",
@@ -403,7 +403,8 @@ def _distill_json(parsed: Any, char_budget: int) -> tuple:
     for _ in range(_MAX_SHRINK_ITERS):
         drops = []
         content = _walk_json(parsed, str_cap, list_cap, "", drops)
-        size = len(json.dumps(content, ensure_ascii=False, separators=(",", ":")))
+        size = len(json.dumps(content, ensure_ascii=False, separators=(",", ":"),
+                              allow_nan=False))
         if size <= char_budget or (str_cap <= _MIN_STR_CAP and list_cap <= _MIN_LIST_CAP):
             break
         str_cap = max(_MIN_STR_CAP, str_cap // 2)
@@ -639,8 +640,88 @@ def _detect_strategy(tool_output: Any, schema_hint: Optional[str]) -> tuple:
             return "tabular", tool_output
         return "text", tool_output
 
-    # unsupported type: fall back to text on its str() form
-    return "text", str(tool_output)
+    # Anything left is a type `_reject_undistillable` should already have
+    # refused; str() is NOT a safe fallback here (object.__repr__ carries a
+    # heap address). Fail loudly rather than emit a value that changes on the
+    # next run.
+    raise TypeError(
+        f"distill() cannot accept {type(tool_output).__name__}: no "
+        f"deterministic serialization. Convert to JSON-compatible types "
+        f"or str() it yourself.")
+
+
+# ---------------------------------------------------------------------------
+# Input admission — the determinism contract's front door
+# ---------------------------------------------------------------------------
+# The load-bearing public claim is byte-identical output for the same input,
+# every run, every machine, so the cache in front of this never busts. Three
+# input shapes broke that claim silently, and no threshold or code path
+# downstream can repair them, so they are refused here instead:
+#
+#   1. An arbitrary object fell through to `str(obj)`, and object.__repr__
+#      embeds a heap address. ASLR changes it on EVERY run, so that documented
+#      path violated the contract 100% of the time.
+#   2. A set/frozenset iterates in PYTHONHASHSEED order, so its str() differs
+#      across processes -- the textbook nondeterminism this package's own
+#      determinism guard names and cannot reach (its worker transport is JSON,
+#      and a set can't cross it).
+#   3. A non-str dict key is coerced to a string by json.dumps, so {1: "a"}
+#      and {"1": "a"} -- unequal inputs -- produce the SAME receipt digest.
+#      The receipt's whole job is proving which output it describes.
+#
+# NaN/Infinity are refused too: they are not JSON, and the package disagreed
+# with itself about them (receipt=True raised, receipt=False emitted invalid
+# JSON into an agent's context).
+
+_JSON_SCALARS = (str, int, float, bool)
+
+
+def _reject_undistillable(value: Any, path: str = "input") -> None:
+    """Raise TypeError/ValueError on input with no deterministic serialization.
+
+    Checked once at the door rather than five levels down inside `json`, so
+    the failure names the offending path and says what to do about it.
+    """
+    stack = [(value, path)]
+    seen = set()
+    while stack:
+        v, at = stack.pop()
+        if v is None or isinstance(v, (bytes, bytearray, str, bool)):
+            continue
+        if isinstance(v, int):
+            continue
+        if isinstance(v, float):
+            if v != v or v in (float("inf"), float("-inf")):
+                raise ValueError(
+                    f"{at}: NaN/Infinity is not JSON and has no stable "
+                    f"serialization; use None or a string instead")
+            continue
+        if id(v) in seen:
+            raise ValueError(f"{at}: input contains a reference cycle")
+        seen.add(id(v))
+        if isinstance(v, dict):
+            for k, sub in v.items():
+                if not isinstance(k, str):
+                    raise TypeError(
+                        f"{at}: dict key {k!r} is {type(k).__name__}, not str. "
+                        f"json canonicalization coerces it to a string, so "
+                        f"{{1: x}} and {{'1': x}} would share one receipt "
+                        f"digest. Convert the keys first.")
+                stack.append((sub, f"{at}[{k!r}]"))
+            continue
+        if isinstance(v, (list, tuple)):
+            for i, sub in enumerate(v):
+                stack.append((sub, f"{at}[{i}]"))
+            continue
+        if isinstance(v, (set, frozenset)):
+            raise TypeError(
+                f"{at}: {type(v).__name__} iterates in PYTHONHASHSEED order, "
+                f"so its distilled output differs across processes. Pass "
+                f"sorted(...) instead.")
+        raise TypeError(
+            f"{at}: {type(v).__name__} has no deterministic serialization "
+            f"(its repr embeds a heap address, which changes every run). "
+            f"Convert to JSON-compatible types or str() it yourself.")
 
 
 def distill(tool_output: Any, *, budget: int = 2000,
@@ -650,9 +731,12 @@ def distill(tool_output: Any, *, budget: int = 2000,
     """Deterministically compact `tool_output` under `budget` (tokens, approx).
 
     Args:
-        tool_output: a dict/list (JSON), a str (JSON text, CSV/TSV/markdown
-            table, or free text), or anything else (stringified and treated
-            as text).
+        tool_output: a dict/list of JSON-compatible values (str keys only), a
+            str (JSON text, CSV/TSV/markdown table, or free text), or bytes.
+            Anything with no deterministic serialization — an arbitrary
+            object, a set, a non-str dict key, NaN/Infinity — is refused with
+            a typed error rather than distilled into output that changes on
+            the next run. See `_reject_undistillable`.
         budget: approximate token budget (see `estimate_tokens` — heuristic,
             not a real tokenizer). Converted internally to a char budget.
         schema_hint: force "json" | "tabular" | "text" instead of
@@ -668,6 +752,7 @@ def distill(tool_output: Any, *, budget: int = 2000,
     """
     if budget <= 0:
         raise ValueError("budget must be a positive integer (tokens)")
+    _reject_undistillable(tool_output)
 
     strategy, working = _detect_strategy(tool_output, schema_hint)
     char_budget = _char_budget(budget)
@@ -677,6 +762,14 @@ def distill(tool_output: Any, *, budget: int = 2000,
     elif strategy == "tabular":
         if isinstance(working, str):
             content, drops, truncated = _distill_tabular_text(working, char_budget)
+        elif not isinstance(working, (list, tuple)):
+            # list(a_dict) yields its KEYS: schema_hint="tabular" on a dict
+            # silently distilled the key names and threw away every value,
+            # with truncated=False, an empty drop list, and a receipt that
+            # verified ok. Total data loss, affirmatively certified.
+            raise TypeError(
+                f"schema_hint='tabular' needs a list of row dicts or table "
+                f"text, got {type(working).__name__}")
         else:
             content, drops, truncated = _distill_tabular_rows(list(working), char_budget)
     elif strategy == "text":

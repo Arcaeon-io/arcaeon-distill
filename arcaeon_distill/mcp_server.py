@@ -62,6 +62,13 @@ TOOLS = [
                     "description": "Optional relevance query for the text "
                                    "strategy's sentence ranking.",
                 },
+                "timestamp": {
+                    "type": "boolean",
+                    "description": "Include the receipt's wall-clock "
+                                   "created_at. Off by default: it would make "
+                                   "two identical calls return different "
+                                   "bytes and bust your prefix cache.",
+                },
                 "receipt": {
                     "type": "boolean", "default": True,
                     "description": "Include a drop receipt in the response.",
@@ -105,9 +112,26 @@ def _call_distill(args: dict) -> dict:
         "est_tokens_before": result.est_tokens_before,
         "est_tokens_after": result.est_tokens_after,
         "truncated": result.truncated,
-        "receipt": result.receipt.to_dict() if result.receipt else None,
+        # The receipt's `created_at` is wall-clock. Serialized into the tool
+        # result it lands in the agent's context and makes the response NOT
+        # byte-identical between two identical calls — busting the prefix
+        # cache this tool exists to protect, on the one surface where the
+        # claim is advertised. The library's own tests strip it before
+        # comparing; the shipped surface has to strip it too. Ask for
+        # `timestamp: true` if you want the stamp.
+        "receipt": _receipt_payload(result.receipt,
+                                    stamp=bool(args.get("timestamp"))),
     }
     return out
+
+
+def _receipt_payload(receipt, *, stamp: bool):
+    if receipt is None:
+        return None
+    row = receipt.to_dict()
+    if not stamp:
+        row.pop("created_at", None)
+    return row
 
 
 def handle(msg: dict):
