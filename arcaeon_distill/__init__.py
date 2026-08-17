@@ -109,7 +109,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Optional
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 __all__ = [
     "distill", "estimate_tokens", "DistilledResult", "DropReceipt",
     "verify_receipt", "SCHEMA",
@@ -267,6 +267,15 @@ class DropReceipt:
         row = self.to_dict()
         row["kind"] = "distill_receipt"
         row["distiller"] = distiller
+        # Stamp ts BEFORE append (mirrors arcaeon_compact's seal, H-int-1
+        # 2026-08-16): Ledger.append() copies its input and setdefault-stamps
+        # `ts` on the COPY, so an unstamped caller's row silently diverges from
+        # the stored/hashed row — an honest receipt then FAILS an independent
+        # recomputation of the published chain formula (false integrity
+        # failure, caller-side only). Pre-stamping makes append's setdefault a
+        # no-op, so the returned row is byte-identical to what was chained.
+        # Same "%Y-%m-%dT%H:%M:%SZ" format as arcaeon_ledger._now_iso().
+        row["ts"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         row["chain"] = Ledger(ledger_path).append(row)
         return row
 
@@ -453,21 +462,39 @@ def _distill_json(parsed: Any, char_budget: int) -> tuple:
     the same way a long list does: head/tail keys kept, a
     `__distilled_dropped_keys__` count marker in between, a `dict_truncated`
     drop recorded.
+
+    Keeps the SMALLEST iteration seen, not just the last one (H-distill-2,
+    2026-08-16, found by property testing): with a budget small enough that
+    `char_budget` can never be reached, the loop drives `list_cap`/`dict_cap`
+    down to their floor (2 / 4) regardless of whether the container actually
+    needed cutting. A short list (e.g. 3 empty-list items, 12 chars total)
+    gets floor-capped to 2 anyway, inserting a `"...+1 more items"` marker
+    that is ITSELF longer than the one item it replaced -- content grows,
+    yet `truncated=True` is reported, which reads as "I shrank this" while
+    doing the opposite. Since every iteration is a legitimate candidate
+    output (all caps are internally consistent), returning the smallest one
+    seen is always at least as good as the naive last-iteration choice and
+    strictly better on this case; the deterministic cap sequence is
+    unchanged so this does not affect any case that already hits budget.
     """
     str_cap, list_cap, dict_cap = _DEFAULT_STR_CAP, _DEFAULT_LIST_CAP, _DEFAULT_DICT_CAP
     content, drops = parsed, []
+    best = None  # (size, content, drops, truncated)
     for _ in range(_MAX_SHRINK_ITERS):
         drops = []
         content = _walk_json(parsed, str_cap, list_cap, dict_cap, "", drops)
         size = len(json.dumps(content, ensure_ascii=False, separators=(",", ":"),
                               allow_nan=False))
+        if best is None or size < best[0]:
+            best = (size, content, drops, bool(drops))
         if size <= char_budget or (str_cap <= _MIN_STR_CAP and list_cap <= _MIN_LIST_CAP
                                     and dict_cap <= _MIN_DICT_CAP):
             break
         str_cap = max(_MIN_STR_CAP, str_cap // 2)
         list_cap = max(_MIN_LIST_CAP, list_cap // 2)
         dict_cap = max(_MIN_DICT_CAP, dict_cap // 2)
-    return content, drops, bool(drops)
+    _, content, drops, truncated = best
+    return content, drops, truncated
 
 
 # ---------------------------------------------------------------------------
@@ -668,7 +695,28 @@ _VALID_HINTS = {"json", "tabular", "text"}
 def _detect_strategy(tool_output: Any, schema_hint: Optional[str]) -> tuple:
     """Returns (strategy_name, working_value). working_value is the parsed
     form the chosen strategy operates on (e.g. a str parsed to dict for json
-    hint applied to a JSON string)."""
+    hint applied to a JSON string).
+
+    bytes/bytearray input (H-distill-1, 2026-08-16): the module docstring's
+    Args section and `_reject_undistillable` both document/admit raw bytes as
+    a valid top-level input -- `_digest_value` even has a dedicated bytes
+    branch -- but this function had no bytes case and fell through to the
+    generic TypeError, so `distill(b"...", budget=...)` always raised,
+    contradicting the documented contract on every call. Decode to str
+    up front (UTF-8, the only encoding this package can be deterministic
+    about) and let it flow through the existing str-detection logic so
+    schema_hint continues to behave identically for bytes and str input.
+    Non-UTF-8 bytes get a clear, typed error instead of a downstream
+    json.dumps TypeError from deep inside a strategy.
+    """
+    if isinstance(tool_output, (bytes, bytearray)):
+        try:
+            tool_output = bytes(tool_output).decode("utf-8")
+        except UnicodeDecodeError as e:
+            raise ValueError(
+                f"distill() cannot accept bytes that are not valid UTF-8 "
+                f"text ({e}); decode it yourself first") from e
+
     if schema_hint is not None:
         if schema_hint not in _VALID_HINTS:
             raise ValueError(f"schema_hint must be one of {sorted(_VALID_HINTS)}, got {schema_hint!r}")

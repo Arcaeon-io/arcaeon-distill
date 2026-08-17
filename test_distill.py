@@ -566,6 +566,72 @@ def test_wide_dict_budget_is_enforced():
           f"dict_truncated recorded, verify_receipt ok")
 
 
+def test_dict_at_exact_cap_is_not_truncated():
+    """Mutation-testing find (2026-08-16): `_walk_json`'s dict-breadth check
+    is `len(obj) > dict_cap` (default 200). An off-by-one mutant (`>=`)
+    SURVIVED the full suite -- nothing exercised a dict with EXACTLY
+    `dict_cap` keys, so the boundary itself was unverified. A dict of
+    exactly 200 keys must round-trip whole: no `__distilled_dropped_keys__`
+    marker, no `dict_truncated` drop, `truncated=False` -- the cap is a
+    "more than this shrinks" line, not "this much or more shrinks"."""
+    data = {f"k{i}": i for i in range(200)}  # == default dict_cap, not over it
+    result = distill(data, budget=5000)  # generous budget: no shrink-loop interference
+    assert result.strategy == "json"
+    assert not result.truncated, "a dict of exactly dict_cap keys was truncated"
+    assert "__distilled_dropped_keys__" not in result.content
+    assert len(result.content) == 200
+    assert result.content == data
+    print("PASS a 200-key dict (== default dict_cap) survives whole, untruncated")
+
+
+def test_list_at_exact_cap_is_not_truncated():
+    """Mutation-testing find (2026-08-16): same off-by-one shape as the dict
+    cap, on `_walk_json`'s list-length check (`> list_cap`, default 20). A
+    `>=` mutant SURVIVED -- no test used a list of exactly `list_cap` items.
+    At exactly 20 items nothing should be cut: no "...+N more items"
+    marker, no `list_truncated` drop."""
+    data = list(range(20))  # == default list_cap, not over it
+    result = distill(data, budget=5000, schema_hint="json")
+    assert not result.truncated, "a list of exactly list_cap items was truncated"
+    assert result.content == data
+    assert not any(isinstance(x, str) and x.startswith("...+") for x in result.content)
+    print("PASS a 20-item list (== default list_cap) survives whole, untruncated")
+
+
+def test_string_at_exact_cap_is_unchanged():
+    """Mutation-testing find (2026-08-16): same off-by-one shape again on the
+    string cap (`> str_cap`, default 300). The `>=` mutant is worse than the
+    dict/list cases -- at len(s) == str_cap, `cut = obj[str_cap:]` is EMPTY,
+    so the mutant appends a live '...+0 more chars' suffix to an
+    already-complete string, making the 'distilled' output LONGER than the
+    original while claiming a drop happened. A 300-char string must come
+    back byte-identical, not with a phantom marker for zero dropped chars."""
+    s = "x" * 300  # == default str_cap, not over it
+    result = distill({"s": s}, budget=5000)
+    assert not result.truncated, "a string of exactly str_cap chars was truncated"
+    assert result.content["s"] == s, (
+        f"300-char string round-tripped as {result.content['s']!r} "
+        f"({len(result.content['s'])} chars) -- expected byte-identical")
+    print("PASS a 300-char string (== default str_cap) round-trips unchanged")
+
+
+def test_two_row_list_of_dicts_is_detected_as_tabular():
+    """Mutation-testing find (2026-08-16): `_is_row_list`'s length guard is
+    `len(data) < 2` (the tabular strategy needs at least a header shape, so
+    a 0- or 1-row list falls back to json). An off-by-one mutant (`<= 2`)
+    SURVIVED -- no test checked strategy auto-detection on the SMALLEST
+    valid tabular input, exactly 2 rows. Under the mutant, a 2-row
+    list-of-dicts silently detects as "json" instead of "tabular" -- still
+    correct output, but the wrong strategy label and the wrong receipt
+    shape (dict/list drops instead of rows_dropped) for any caller that
+    branches on `result.strategy`."""
+    rows = [{"a": 1, "b": 2}, {"a": 3, "b": 4}]  # smallest valid tabular input
+    result = distill(rows, budget=5000)  # no schema_hint: exercise auto-detect
+    assert result.strategy == "tabular", (
+        f"a 2-row list-of-dicts auto-detected as {result.strategy!r}, not 'tabular'")
+    print("PASS a 2-row list-of-dicts auto-detects as the tabular strategy")
+
+
 def test_cross_process_determinism_on_an_adversarial_payload():
     """The JSON-transport guard can't express a hostile payload, so build one
     INSIDE the worker: long equal-length values (ranking ties), nested dicts
@@ -583,6 +649,37 @@ def test_cross_process_determinism_on_an_adversarial_payload():
         "the same payload distilled under PYTHONHASHSEED 0/1/12345 produced "
         "different bytes -- real cross-process nondeterminism")
     print("PASS adversarial payload is byte-identical under three explicit hash seeds")
+
+
+def test_json_shrink_loop_stops_at_exact_budget_not_past_it():
+    """Mutation-testing find (2026-08-16): the shrink-loop stop condition in
+    `_distill_json` is `size <= char_budget` -- inclusive, so a pass that
+    lands EXACTLY on budget stops right there instead of shrinking again for
+    no reason. A `<=` -> `<` mutant SURVIVED the whole suite because no
+    existing case makes a shrink-loop iteration's serialized size land on
+    char_budget exactly; that requires solving for the budget from the
+    output size, not guessing one.
+
+    A dict with a single 301-char string value truncates, at the DEFAULT
+    str_cap=300, to a 300-char string plus a "...+1 more chars" marker; the
+    whole distilled JSON blob is exactly 324 chars, which is char_budget for
+    budget=81 tokens (81*4=324) -- the *first* shrink-loop pass already
+    lands on budget to the byte.
+
+    Correct code stops there (a 1-char drop). A `<` mutant sees
+    `324 < 324` is False, does not stop, halves the caps (str_cap 300->150),
+    re-walks, and that deeper pass becomes the new smallest-seen result: 151
+    chars dropped instead of 1, at the identical budget -- needless
+    truncation the exact-fit pass never required."""
+    data = {"s": "x" * 301}
+    r = distill(data, budget=81, receipt=False)
+    size = len(json.dumps(r.content, ensure_ascii=False, separators=(",", ":")))
+    assert size == 324, "fixture drifted: exact-budget size changed (%d)" % size
+    assert r.content["s"] == "x" * 300 + "...+1 more chars", (
+        "shrink loop over-truncated past the exact-fit first pass: %r"
+        % r.content["s"])
+    print("PASS shrink-loop stop is <= (inclusive): an exact-budget fit "
+          "is not shrunk further")
 
 
 ALL_TESTS = [v for k, v in list(globals().items()) if k.startswith("test_")]
